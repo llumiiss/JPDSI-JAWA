@@ -5,13 +5,111 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-	<title>Wynik</title>
+	<title>Wynik kalkulacji kredytu</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 700px;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #f5f5f5;
+		}
+		h1 {
+			color: #2c3e50;
+			text-align: center;
+		}
+		.result-container {
+			background-color: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+		.result-item {
+			margin-bottom: 15px;
+			padding: 15px;
+			background-color: #ecf0f1;
+			border-radius: 5px;
+		}
+		.result-label {
+			font-weight: bold;
+			color: #34495e;
+			margin-right: 10px;
+		}
+		.result-value {
+			color: #2c3e50;
+			font-size: 18px;
+		}
+		.monthly-payment {
+			font-size: 24px;
+			color: #27ae60;
+			font-weight: bold;
+		}
+		.btn {
+			background-color: #3498db;
+			color: white;
+			padding: 12px 30px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			margin-top: 20px;
+		}
+		.btn:hover {
+			background-color: #2980b9;
+		}
+	</style>
 </h:head>
 <h:body>
-	<h:messages />
-	wynik: #{calcBB.result}
-	<h:form>
-		<h:commandButton value="Powrót" action="index" />
-	</h:form>
+	<h1>Wynik kalkulacji kredytu</h1>
+	
+	<div class="result-container">
+		<h:messages />
+		
+		<div class="result-item">
+			<span class="result-label">Kwota kredytu:</span>
+			<span class="result-value"><h:outputText value="#{calcBB.loanAmount}">
+				<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+			</h:outputText></span>
+		</div>
+		
+		<div class="result-item">
+			<span class="result-label">Oprocentowanie roczne:</span>
+			<span class="result-value"><h:outputText value="#{calcBB.interestRate}">
+				<f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2"/>
+			</h:outputText>%</span>
+		</div>
+		
+		<div class="result-item">
+			<span class="result-label">Okres kredytowania:</span>
+			<span class="result-value"><h:outputText value="#{calcBB.loanTerm}">
+				<f:convertNumber type="number" minFractionDigits="0" maxFractionDigits="1"/>
+			</h:outputText> lat</span>
+		</div>
+		
+		<div class="result-item" style="background-color: #d5f4e6;">
+			<span class="result-label">Rata miesięczna:</span>
+			<span class="result-value monthly-payment"><h:outputText value="#{calcBB.monthlyPayment}">
+				<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+			</h:outputText></span>
+		</div>
+		
+		<div class="result-item">
+			<span class="result-label">Całkowita kwota do spłaty:</span>
+			<span class="result-value"><h:outputText value="#{calcBB.totalPayment}">
+				<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+			</h:outputText></span>
+		</div>
+		
+		<div class="result-item">
+			<span class="result-label">Całkowite odsetki:</span>
+			<span class="result-value"><h:outputText value="#{calcBB.totalInterest}">
+				<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+			</h:outputText></span>
+		</div>
+		
+		<h:form>
+			<h:commandButton value="Powrót" action="index" styleClass="btn" />
+		</h:form>
+	</div>
 </h:body>
 </html>
