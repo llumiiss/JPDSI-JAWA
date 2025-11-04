@@ -5,27 +5,89 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-	<title>JSF 01 - ziarno, parametry formularza, nawigacja, messages</title>
+	<title>Kalkulator Kredytowy</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 600px;
+			margin: 50px auto;
+			padding: 20px;
+			background-color: #f5f5f5;
+		}
+		h1 {
+			color: #2c3e50;
+			text-align: center;
+		}
+		.form-container {
+			background-color: white;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+			color: #34495e;
+		}
+		.form-group input {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+		.btn {
+			background-color: #3498db;
+			color: white;
+			padding: 12px 30px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			margin-right: 10px;
+		}
+		.btn:hover {
+			background-color: #2980b9;
+		}
+		.link {
+			color: #3498db;
+			text-decoration: none;
+		}
+	</style>
 </h:head>
 <h:body>
 
-	<h1>JSF 01 - ziarno, formularz, parametry, nawigacja, messages</h1>
+	<h1>Kalkulator Kredytowy</h1>
 
-	<h:form id="bla">
-  		x: <h:inputText value="#{calcBB.x}" />
-		<br />
-  		y: <h:inputText value="#{calcBB.y}" />
-		<br />
-		<h:messages id="msg" />
-
-		<h:commandButton value="Dodaj" action="#{calcBB.calc()}"/>
-		<br />
-		<h:commandButton value="Dodaj (AJAX)" action="#{calcBB.calc_AJAX()}">
-			<f:ajax execute="@form" render="msg" />
-		</h:commandButton>
-		<br />
-		<h:commandLink value="Informacje" action="#{calcBB.info()}" />
-	</h:form>
+	<div class="form-container">
+		<h:form id="loanForm">
+			<div class="form-group">
+				<label>Kwota kredytu (PLN):</label>
+				<h:inputText value="#{calcBB.loanAmount}" style="width: 100%; padding: 10px;"/>
+			</div>
+			<div class="form-group">
+				<label>Oprocentowanie roczne (%):</label>
+				<h:inputText value="#{calcBB.interestRate}" style="width: 100%; padding: 10px;"/>
+			</div>
+			<div class="form-group">
+				<label>Okres kredytowania (lata):</label>
+				<h:inputText value="#{calcBB.loanTerm}" style="width: 100%; padding: 10px;"/>
+			</div>
+			<h:messages id="msg" style="color: red; margin-bottom: 15px;"/>
+			
+			<h:commandButton value="Oblicz ratę" action="#{calcBB.calc()}" styleClass="btn"/>
+			<br /><br />
+			<h:commandButton value="Oblicz ratę (AJAX)" action="#{calcBB.calc_AJAX()}">
+				<f:ajax execute="@form" render="msg" />
+			</h:commandButton>
+			<br /><br />
+			<h:commandLink value="Informacje" action="#{calcBB.info()}" styleClass="link"/>
+		</h:form>
+	</div>
 
 </h:body>
 </html>
