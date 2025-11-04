@@ -1,80 +1,74 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package com.jsfcourse.calc;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @Named
 @RequestScoped
-//@SessionScoped
 public class CalcBB {
-	private String x;
-	private String y;
-	private Double result;
+   private String x;
+   private String y;
+   private Double result;
+   @Inject
+   FacesContext ctx;
 
-	@Inject
-	FacesContext ctx;
+   public CalcBB() {
+   }
 
-	public String getX() {
-		return x;
-	}
+   public String getX() {
+      return this.x;
+   }
 
-	public void setX(String x) {
-		this.x = x;
-	}
+   public void setX(String x) {
+      this.x = x;
+   }
 
-	public String getY() {
-		return y;
-	}
+   public String getY() {
+      return this.y;
+   }
 
-	public void setY(String y) {
-		this.y = y;
-	}
+   public void setY(String y) {
+      this.y = y;
+   }
 
-	public Double getResult() {
-		return result;
-	}
+   public Double getResult() {
+      return this.result;
+   }
 
-	public void setResult(Double result) {
-		this.result = result;
-	}
+   public void setResult(Double result) {
+      this.result = result;
+   }
 
-	public boolean doTheMath() {
-		try {
-			double x = Double.parseDouble(this.x);
-			double y = Double.parseDouble(this.y);
+   public boolean doTheMath() {
+      try {
+         double x = Double.parseDouble(this.x);
+         double y = Double.parseDouble(this.y);
+         this.result = x + y;
+         this.ctx.addMessage((String)null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", (String)null));
+         return true;
+      } catch (Exception var5) {
+         this.ctx.addMessage((String)null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", (String)null));
+         return false;
+      }
+   }
 
-			result = x + y;
+   public String calc() {
+      return this.doTheMath() ? "showresult" : null;
+   }
 
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
-			return true;
-		} catch (Exception e) {
-			ctx.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
-			return false;
-		}
-	}
+   public String calc_AJAX() {
+      if (this.doTheMath()) {
+         this.ctx.addMessage((String)null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Wynik: " + this.result, (String)null));
+      }
 
-	// Go to "showresult" if ok
-	public String calc() {
-		if (doTheMath()) {
-			return "showresult";
-		}
-		return null;
-	}
+      return null;
+   }
 
-	// Put result in messages on AJAX call
-	public String calc_AJAX() {
-		if (doTheMath()) {
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Wynik: " + result, null));
-		}
-		return null;
-	}
-
-	public String info() {
-		return "info";
-	}
+   public String info() {
+      return "info";
+   }
 }
