@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Wynik kalkulacji kredytu</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f5f5f5;
+			padding: 20px;
+		}
+		h1 {
+			color: #2c3e50;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		.monthly-payment-value {
+			font-size: 24px;
+			color: #27ae60;
+			font-weight: bold;
+		}
+	</style>
+</h:head>
+<h:body>
+	<h1>Wynik kalkulacji kredytu</h1>
+	
+	<p:panel header="Szczegóły kredytu" style="max-width: 700px; margin: 0 auto;">
+		<h:form>
+			<p:messages severity="error,info" showDetail="true" closable="true" style="margin-bottom: 20px;"/>
+			
+			<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" style="width: 100%;">
+				<p:outputLabel value="Kwota kredytu:" style="font-weight: bold;"/>
+				<h:outputText value="#{calcBB.loanAmount}">
+					<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+				</h:outputText>
+				
+				<p:outputLabel value="Oprocentowanie roczne:" style="font-weight: bold;"/>
+				<h:outputText value="#{calcBB.interestRate}">
+					<f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2"/>
+				</h:outputText>
+				<p:outputLabel value="" />
+				<h:outputText value="%" />
+				
+				<p:outputLabel value="Okres kredytowania:" style="font-weight: bold;"/>
+				<h:outputText value="#{calcBB.loanTerm}">
+					<f:convertNumber type="number" minFractionDigits="0" maxFractionDigits="1"/>
+				</h:outputText>
+				<p:outputLabel value="" />
+				<h:outputText value="lat" />
+			</p:panelGrid>
+			
+			<p:separator />
+			
+			<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" 
+				style="width: 100%; background-color: #d5f4e6; padding: 15px; border-radius: 5px;">
+				<p:outputLabel value="Rata miesięczna:" style="font-weight: bold; font-size: 18px;"/>
+				<h:outputText value="#{calcBB.monthlyPayment}" styleClass="monthly-payment-value">
+					<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+				</h:outputText>
+			</p:panelGrid>
+			
+			<p:separator />
+			
+			<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" style="width: 100%;">
+				<p:outputLabel value="Całkowita kwota do spłaty:" style="font-weight: bold;"/>
+				<h:outputText value="#{calcBB.totalPayment}">
+					<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+				</h:outputText>
+				
+				<p:outputLabel value="Całkowite odsetki:" style="font-weight: bold;"/>
+				<h:outputText value="#{calcBB.totalInterest}">
+					<f:convertNumber type="currency" currencyCode="PLN" minFractionDigits="2"/>
+				</h:outputText>
+			</p:panelGrid>
+			
+			<p:commandButton value="Powrót" action="index" icon="pi pi-arrow-left" 
+				style="margin-top: 20px;"/>
+		</h:form>
+	</p:panel>
+</h:body>
+</html>
