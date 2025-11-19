@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 
-@WebServlet("/result")  // Mapowanie do URL "/result"
+@WebServlet("/result")
 public class CreditCalculatorServlet extends HttpServlet {
 
     // Obsługuje żądanie POST
