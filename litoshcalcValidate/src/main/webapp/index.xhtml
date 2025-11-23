@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Kalkulator kredytowy</title>
+        <h:outputStylesheet name="css/styles.css" />
+    </head>
+    <body>
+        <h1>Kalkulator kredytowy</h1>
+        <h:form>
+            <p:inputText id="loanAmount" value="#{creditCalculator.loanAmount}" label="Kwota kredytu" required="true" />
+            <p:inputText id="interestRate" value="#{creditCalculator.interestRate}" label="Oprocentowanie" required="true" />
+            <p:inputText id="loanTerm" value="#{creditCalculator.loanTerm}" label="Okres (w latach)" required="true" />
+            <p:commandButton value="Oblicz ratę miesięczną" action="#{creditCalculator.calculate}" />
+        </h:form>
+    </body>
+</html>
