@@ -11,6 +11,7 @@ import java.io.IOException;
 public class CreditCalculatorServlet extends HttpServlet {
 
     // Obsługuje żądanie POST
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double loanAmount = Double.parseDouble(request.getParameter("loanAmount"));
         double interestRate = Double.parseDouble(request.getParameter("interestRate")) / 100 / 12;
