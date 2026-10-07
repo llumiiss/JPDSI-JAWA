@@ -1,0 +1,12 @@
+# Maven
+target/
+
+# NetBeans / IDE
+nbproject/private/
+.idea/
+*.iml
+.vscode/
+
+# System
+Thumbs.db
+.DS_Store
